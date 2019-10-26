@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace AddressBook.Core.AddressTests
+namespace AddressBook.Core
 {
     public class AddressTests
     {
