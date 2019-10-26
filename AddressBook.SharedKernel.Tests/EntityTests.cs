@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using AddressBook.Core;
 
-namespace AddressBook.Core.Tests
+namespace AddressBook.SharedKernel.Tests
 {
     public class EntityTests
     {
