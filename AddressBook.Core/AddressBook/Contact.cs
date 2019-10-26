@@ -14,6 +14,7 @@ namespace AddressBook.Core
         public DateTime DateOfBirth { get; private set; }
         public Guid AddressBookId { get; private set; }
         public IEnumerable<TelephoneNumber> TelephoneNumbers => _telephoneNumbers.AsEnumerable();
+        public TrackingState Tracking { get; set; }
 
         private Contact() : base() { }
 
@@ -40,11 +41,13 @@ namespace AddressBook.Core
                 throw new ArgumentException($"Telephone number {telephoneNumber.Value} already assigned to contact {Name}.");
             }
             _telephoneNumbers.Add(telephoneNumber);
+            Tracking = TrackingState.Modified;
         }
 
         public void Remove(TelephoneNumber telephoneNumber)
         {
             _telephoneNumbers.Remove(telephoneNumber);
+            telephoneNumber.Tracking = TrackingState.Deleted;
         }
 
         public void UpdateContact(string name, Address address, DateTime dateOfBirth)
@@ -53,6 +56,7 @@ namespace AddressBook.Core
             Name = name;
             Address = address;
             DateOfBirth = dateOfBirth;
+            Tracking = TrackingState.Modified;
         }
 
         private void Validate(string name, Address address, List<TelephoneNumber> telephoneNumbers)

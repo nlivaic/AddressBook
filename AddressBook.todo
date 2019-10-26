@@ -1,2 +1,6 @@
 ☐ TrackingState
+    ✔ Add @done (26. 10. 2019. 12:31:36)
 ☐ private default ctors needed for EF Core?
+☐ Tests
+    ☐ Tracking state
+    ✔ address book removes contact @done (26. 10. 2019. 15:34:20)

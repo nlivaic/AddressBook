@@ -5,24 +5,17 @@ namespace AddressBook.Core.Tests
 {
     public class TelephoneNumberTests
     {
-        [Fact]
-        public void TelephoneNumber_MustBeInProperFormatShorter()
+        [Theory]
+        [InlineData("091123456")]
+        [InlineData("0911234567")]
+        public void TelephoneNumber_MustBeInProperFormat(
+            string telephoneNumber)
         {
             // Arrange, Act
-            TelephoneNumber target = new TelephoneNumber("091123456");
+            TelephoneNumber target = new TelephoneNumber(telephoneNumber);
 
             // Assert
-            Assert.Equal("091123456", target.Value);
-        }
-
-        [Fact]
-        public void TelephoneNumber_MustBeInProperFormatLonger()
-        {
-            // Arrange, Act
-            TelephoneNumber target = new TelephoneNumber("0911234567");
-
-            // Assert
-            Assert.Equal("0911234567", target.Value);
+            Assert.Equal(telephoneNumber, target.Value);
         }
 
         [Fact]

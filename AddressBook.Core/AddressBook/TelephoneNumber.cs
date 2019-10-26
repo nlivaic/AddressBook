@@ -7,6 +7,7 @@ namespace AddressBook.Core
     public class TelephoneNumber : BaseEntity<Guid, TelephoneNumber>
     {
         public string Value { get; private set; }
+        public TrackingState Tracking { get; set; }
 
         private TelephoneNumber() { }
 

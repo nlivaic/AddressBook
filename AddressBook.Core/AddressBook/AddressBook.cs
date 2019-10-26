@@ -26,6 +26,12 @@ namespace AddressBook.Core
             if (_contacts.Any(c => c == newContact))
                 throw new ArgumentException($"Contact {newContact.Name} at {newContact.Address} cannot be registered twice.");
             _contacts.Add(newContact);
+            newContact.Tracking = TrackingState.Added;
+        }
+
+        public void UnregisterContact(Contact contact)
+        {
+            contact.Tracking = TrackingState.Deleted;
         }
     }
 }
