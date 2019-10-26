@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Xunit;
 using AddressBook.Core;
+using Xunit;
 
 namespace AddressBook.SharedKernel.Tests
 {
@@ -12,11 +12,10 @@ namespace AddressBook.SharedKernel.Tests
         {
             // Arrange
             Guid id = Guid.NewGuid();
-            AddressBook addressBook1 = new AddressBook(id, new List<Contact>());
-            AddressBook addressBook2 = new AddressBook(id, new List<Contact>());
+            AddressBook.Core.AddressBook addressBook1 = new AddressBook.Core.AddressBook(id, new List<Contact>());
+            AddressBook.Core.AddressBook addressBook2 = new AddressBook.Core.AddressBook(id, new List<Contact>());
 
             // Act
-            // bool result = addressBook1.Equals(addressBook2);
             bool result = addressBook1 == addressBook2;
 
             // Assert
@@ -28,8 +27,8 @@ namespace AddressBook.SharedKernel.Tests
         {
             // Arrange
             Guid id = Guid.NewGuid();
-            AddressBook addressBook1 = new AddressBook(id, new List<Contact>());
-            AddressBook addressBook2 = new AddressBook(id, new List<Contact>());
+            AddressBook.Core.AddressBook addressBook1 = new AddressBook.Core.AddressBook(id, new List<Contact>());
+            AddressBook.Core.AddressBook addressBook2 = new AddressBook.Core.AddressBook(id, new List<Contact>());
 
             // Act
             bool result = addressBook1.Equals(addressBook2);
@@ -42,8 +41,8 @@ namespace AddressBook.SharedKernel.Tests
         public void Entity_CanTestEqualityOnId_NotEqual()
         {
             // Arrange
-            AddressBook addressBook1 = new AddressBook(new List<Contact>());
-            AddressBook addressBook2 = new AddressBook(new List<Contact>());
+            AddressBook.Core.AddressBook addressBook1 = new AddressBook.Core.AddressBook(new List<Contact>());
+            AddressBook.Core.AddressBook addressBook2 = new AddressBook.Core.AddressBook(new List<Contact>());
 
             // Act
             bool result = addressBook1 == addressBook2;
