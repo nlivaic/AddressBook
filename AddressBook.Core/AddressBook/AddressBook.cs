@@ -11,7 +11,10 @@ namespace AddressBook.Core
 
         public IEnumerable<Contact> Contacts => _contacts.AsEnumerable();
 
-        private AddressBook() : base() { }
+        private AddressBook() : base()
+        {
+            _contacts = new List<Contact>();
+        }
 
         public AddressBook(IEnumerable<Contact> contacts) : this(Guid.NewGuid(), contacts) { }
 

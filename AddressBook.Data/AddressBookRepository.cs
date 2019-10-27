@@ -3,6 +3,7 @@ using System.Linq;
 using AddressBook.Core;
 using AddressBook.SharedKernel;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace AddressBook.Data
 {
@@ -18,36 +19,55 @@ namespace AddressBook.Data
 
         public Core.AddressBook GetContact(Guid contactId)
         {
-            return (from addressBook in _ctx.AddressBooks
-                    join contact in _ctx.Contacts on addressBook.Id equals contact.AddressBookId
-                    where contact.Id == contactId
-                    select addressBook).Include(a => a.Contacts).ThenInclude(c => c.TelephoneNumbers)
+            var contacts = _ctx
+                .Contacts
+                .Include(c => c.TelephoneNumbers)
+                .AsNoTracking()
+                .Where(c => c.Id == contactId)
+                .ToList();
+            var addressBook = new Core.AddressBook(
+                _ctx.AddressBooks
                     .AsNoTracking()
-                    .Single();
+                    .SingleOrDefault().Id,
+                contacts);
+            return addressBook;
         }
 
         public Core.AddressBook GetContact(string name, Address address)
         {
-            return (from addressBook in _ctx.AddressBooks
-                    join contact in _ctx.Contacts on addressBook.Id equals contact.AddressBookId
-                    where contact.Name == name && contact.Address == address
-                    select addressBook).Include(a => a.Contacts).ThenInclude(c => c.TelephoneNumbers)
+            var contacts = _ctx
+                .Contacts
+                .Include(c => c.TelephoneNumbers)
+                .AsNoTracking()
+                .Where(c => c.Name == name && c.Address == address)
+                .ToList();
+            var addressBook = new Core.AddressBook(
+                _ctx.AddressBooks
                     .AsNoTracking()
-                    .Single();
+                    .SingleOrDefault().Id,
+                contacts);
+            return addressBook;
         }
 
         public Core.AddressBook GetContacts(int page = 1)
         {
-            return _ctx.AddressBooks
-                .Include(a => a.Contacts
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize))
-                .ThenInclude(c => c.TelephoneNumbers)
+            var contacts = _ctx
+                .Contacts
+                .OrderBy(c => c.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Include(c => c.TelephoneNumbers)
                 .AsNoTracking()
-                .Single();
+                .ToList();
+            var addressBook = new Core.AddressBook(
+                _ctx.AddressBooks
+                    .AsNoTracking()
+                    .SingleOrDefault().Id,
+                contacts);
+            return addressBook;
         }
 
-        public void Save(Core.AddressBook addressBook)
+        public async Task SaveAsync(Core.AddressBook addressBook)
         {
             foreach (var contact in addressBook.Contacts)
             {
@@ -64,6 +84,7 @@ namespace AddressBook.Data
                         break;
                 }
             }
+            await _ctx.SaveChangesAsync();
         }
     }
 }

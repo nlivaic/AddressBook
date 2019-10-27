@@ -1,3 +1,5 @@
+using AddressBook.Core;
+using AddressBook.Core.Services;
 using AddressBook.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +35,9 @@ namespace AddressBook.Web
             services.AddDbContext<AddressBookDbContext>(options =>
                 options.UseNpgsql(_configuration["ConnectionStrings:AddressBookDatabase"])
             );
+
+            services.AddScoped<IAddressBookService, AddressBookService>();
+            services.AddScoped<IAddressBookRepository, AddressBookRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

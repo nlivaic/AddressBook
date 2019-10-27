@@ -16,7 +16,8 @@ namespace AddressBook.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Contact>().OwnsOne(p => p.Address);
-            // modelBuilder.Entity<Contact>().HasIndex("Name", "Address_Street").IsUnique();
+            modelBuilder.Entity<Contact>().Ignore(c => c.Tracking);
+            modelBuilder.Entity<TelephoneNumber>().Ignore(t => t.Tracking);
         }
     }
 }

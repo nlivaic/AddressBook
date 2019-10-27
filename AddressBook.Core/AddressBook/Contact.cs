@@ -16,7 +16,10 @@ namespace AddressBook.Core
         public IEnumerable<TelephoneNumber> TelephoneNumbers => _telephoneNumbers.AsEnumerable();
         public TrackingState Tracking { get; set; }
 
-        private Contact() : base() { }
+        private Contact() : base()
+        {
+            _telephoneNumbers = new List<TelephoneNumber>();
+        }
 
         public Contact(string name, Address address, DateTime dateOfBirth, Guid addressBookId)
             : this(Guid.NewGuid(), name, address, dateOfBirth, addressBookId, new List<TelephoneNumber>()) { }

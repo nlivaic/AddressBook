@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AddressBook.Core;
+using AddressBook.Core.Services;
+using AddressBook.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AddressBook.Web.Controllers
@@ -9,20 +12,107 @@ namespace AddressBook.Web.Controllers
     [Route("api/[controller]")]
     public class ContactController : Controller
     {
-        public ContactController()
-        {
+        private readonly IAddressBookService _service;
 
+        public ContactController(IAddressBookService service)
+        {
+            _service = service;
+        }
+
+
+        [HttpGet]
+        public IActionResult Get([FromQuery]int pageNr)
+        {
+            if (pageNr < 1)
+            {
+                return BadRequest("Invalid data on input");
+            }
+            IEnumerable<ContactDto> contactsDto = null;
+            try
+            {
+                contactsDto = _service
+                    .GetAddressBook(pageNr)
+                    .Contacts
+                    .Select(c => ContactDto.Create(c));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            return Ok(contactsDto);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public IActionResult Get([FromRoute]string id)
         {
-            return Ok();
+            if (!Guid.TryParse(id, out var contactId))
+                return BadRequest("Id not in proper format");
+            ContactDto contactDto = null;
+            try
+            {
+                contactDto = _service
+                    .GetAddressBookForContact(contactId)
+                    .Contacts
+                    .Select(c => ContactDto.Create(c))
+                    .SingleOrDefault();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            return contactDto == null ? (IActionResult)NotFound() : Ok(contactDto);
         }
 
-        [HttpGet("{page}?{size}")]
-        public IActionResult Get(int page, int size)
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody]ContactDto contactDto)
         {
+            Guid newId = new Guid();
+            Contact contact = null;
+            try
+            {
+                contact = contactDto.Create();
+            }
+            catch (ArgumentException ex) { return BadRequest(ex.Message); }
+            catch { return BadRequest("Invalid data on input."); }
+            try
+            {
+                newId = await _service.AddContactAsync(contact);
+            }
+            catch (ArgumentException ex) { return BadRequest($"An error happened while saving new contact: {ex.Message}"); }
+            catch { return BadRequest("An error happened while saving new contact."); }
+            return CreatedAtAction(nameof(Get), new { id = newId });
+        }
+
+        [HttpPut]
+        public IActionResult Put([FromBody]ContactDto contactDto)
+        {
+            Contact contact = null;
+            try
+            {
+                contact = contactDto.Create();
+            }
+            catch (ArgumentException ex) { return BadRequest(ex.Message); }
+            catch { return BadRequest("Invalid data on input."); }
+            try
+            {
+                _service.UpdateContactAsync(contact);
+            }
+            catch { return BadRequest("An error happened while saving new contact."); }
+            return NoContent();
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute]string id)
+        {
+            if (!Guid.TryParse(id, out var contactId))
+                return BadRequest("Id not in proper format");
+            try
+            {
+                await _service.RemoveContactAsync(contactId);
+            }
+            catch (ArgumentException ex) { return BadRequest($"An error happened while deleting contact: {ex.Message}"); }
+            catch { return BadRequest("An error happened while deleting contact."); }
             return Ok();
         }
     }

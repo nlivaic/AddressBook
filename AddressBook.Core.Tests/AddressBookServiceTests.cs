@@ -10,7 +10,7 @@ namespace AddressBook.Core.Tests
     public class AddressBookServiceTests
     {
         [Fact]
-        public void Service_CanAddUniqueContact()
+        public async void Service_CanAddUniqueContact()
         {
             // Arrange
             AddressBook addressBook = new AddressBookBuilder()
@@ -21,10 +21,10 @@ namespace AddressBook.Core.Tests
             AddressBookService target = new AddressBookService(repo);
 
             // Act
-            target.AddContact(contact);
+            await target.AddContactAsync(contact);
 
             // Assert - repo called.
-            repo.Received().Save(addressBook);
+            await repo.Received().SaveAsync(addressBook);
             Assert.Contains(contact, addressBook.Contacts);
         }
 
@@ -41,11 +41,11 @@ namespace AddressBook.Core.Tests
             AddressBookService target = new AddressBookService(repo);
 
             // Act, Assert
-            Assert.Throws<ArgumentException>(() => target.AddContact(contact));
+            Assert.ThrowsAsync<ArgumentException>(() => target.AddContactAsync(contact));
         }
 
         [Fact]
-        public void Service_CanRemoveContact()
+        public async void Service_CanRemoveContact()
         {
             // Arrange
             AddressBook addressBook = new AddressBookBuilder()
@@ -57,15 +57,15 @@ namespace AddressBook.Core.Tests
             AddressBookService target = new AddressBookService(repo);
 
             // Act
-            target.RemoveContact(contactToRemove.Id);
+            await target.RemoveContactAsync(contactToRemove.Id);
 
             // Assert - repo called.
-            repo.Received().Save(addressBook);
+            await repo.Received().SaveAsync(addressBook);
             Assert.Equal(TrackingState.Deleted, addressBook.Contacts.First().Tracking);
         }
 
         [Fact]
-        public void Service_CanUpdateContact()
+        public async void Service_CanUpdateContact()
         {
             // Arrange
             AddressBook addressBook = new AddressBookBuilder()
@@ -77,10 +77,10 @@ namespace AddressBook.Core.Tests
             AddressBookService target = new AddressBookService(repo);
 
             // Act
-            target.UpdateContact(contactWithUpdateDetails);
+            await target.UpdateContactAsync(contactWithUpdateDetails);
 
             // Assert - repo called.
-            repo.Received().Save(addressBook);
+            await repo.Received().SaveAsync(addressBook);
             Assert.Equal(TrackingState.Modified, addressBook.Contacts.First().Tracking);
         }
     }

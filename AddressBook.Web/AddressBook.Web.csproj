@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AddressBook.Data\AddressBook.Data.csproj" />
+    <ProjectReference Include="..\AddressBook.Core\AddressBook.Core.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
