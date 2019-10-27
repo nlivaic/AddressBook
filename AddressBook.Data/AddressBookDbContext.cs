@@ -7,6 +7,7 @@ namespace AddressBook.Data
     public class AddressBookDbContext : DbContext
     {
         public DbSet<Core.AddressBook> AddressBooks { get; set; }
+        public DbSet<Core.Contact> Contacts { get; set; }
 
         // public AddressBookDbContext() : base() { }
 

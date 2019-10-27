@@ -6,7 +6,7 @@ namespace AddressBook.Core
     {
         AddressBook GetContact(Guid id);
         AddressBook GetContact(string name, Address address);
-        AddressBook GetContacts(int page = 0);
+        AddressBook GetContacts(int page = 1);
         void Save(AddressBook addressBook);
     }
 }

@@ -47,6 +47,7 @@ namespace AddressBook.Core
         public void Remove(TelephoneNumber telephoneNumber)
         {
             _telephoneNumbers.Remove(telephoneNumber);
+            Tracking = TrackingState.Modified;
             telephoneNumber.Tracking = TrackingState.Deleted;
         }
 
