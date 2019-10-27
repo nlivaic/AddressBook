@@ -17,52 +17,55 @@ namespace AddressBook.Data
             _ctx = ctx;
         }
 
-        public Core.AddressBook GetContact(Guid contactId)
+        public async Task<Core.AddressBook> GetContactAsync(Guid contactId)
         {
-            var contacts = _ctx
+            var contacts = await _ctx
                 .Contacts
                 .Include(c => c.TelephoneNumbers)
                 .AsNoTracking()
                 .Where(c => c.Id == contactId)
-                .ToList();
-            var addressBook = new Core.AddressBook(
-                _ctx.AddressBooks
+                .ToListAsync();
+            Core.AddressBook addressBook1 = await _ctx.AddressBooks
                     .AsNoTracking()
-                    .SingleOrDefault().Id,
+                    .SingleOrDefaultAsync();
+            var addressBook = new Core.AddressBook(
+               (await _ctx.AddressBooks
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync()).Id,
                 contacts);
             return addressBook;
         }
 
-        public Core.AddressBook GetContact(string name, Address address)
+        public async Task<Core.AddressBook> GetContactAsync(string name, Address address)
         {
-            var contacts = _ctx
+            var contacts = await _ctx
                 .Contacts
                 .Include(c => c.TelephoneNumbers)
                 .AsNoTracking()
                 .Where(c => c.Name == name && c.Address == address)
-                .ToList();
+                .ToListAsync();
             var addressBook = new Core.AddressBook(
-                _ctx.AddressBooks
+               (await _ctx.AddressBooks
                     .AsNoTracking()
-                    .SingleOrDefault().Id,
+                    .SingleOrDefaultAsync()).Id,
                 contacts);
             return addressBook;
         }
 
-        public Core.AddressBook GetContacts(int page = 1)
+        public async Task<Core.AddressBook> GetContactsAsync(int page = 1)
         {
-            var contacts = _ctx
+            var contacts = await _ctx
                 .Contacts
                 .OrderBy(c => c.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .Include(c => c.TelephoneNumbers)
                 .AsNoTracking()
-                .ToList();
+                .ToListAsync();
             var addressBook = new Core.AddressBook(
-                _ctx.AddressBooks
+                (await _ctx.AddressBooks
                     .AsNoTracking()
-                    .SingleOrDefault().Id,
+                    .SingleOrDefaultAsync()).Id,
                 contacts);
             return addressBook;
         }

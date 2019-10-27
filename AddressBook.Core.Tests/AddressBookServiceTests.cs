@@ -17,7 +17,7 @@ namespace AddressBook.Core.Tests
                .Build();
             Contact contact = AddressBookBuilder.BuildContact4(addressBook.Id);
             IAddressBookRepository repo = Substitute.For<IAddressBookRepository>();
-            repo.GetContact(contact.Name, contact.Address).Returns(addressBook);
+            repo.GetContactAsync(contact.Name, contact.Address).Returns(addressBook);
             AddressBookService target = new AddressBookService(repo);
 
             // Act
@@ -37,7 +37,7 @@ namespace AddressBook.Core.Tests
                .Build();
             Contact contact = AddressBookBuilder.BuildContact3(addressBook.Id);
             IAddressBookRepository repo = Substitute.For<IAddressBookRepository>();
-            repo.GetContact(contact.Name, contact.Address).Returns(addressBook);
+            repo.GetContactAsync(contact.Name, contact.Address).Returns(addressBook);
             AddressBookService target = new AddressBookService(repo);
 
             // Act, Assert
@@ -53,7 +53,7 @@ namespace AddressBook.Core.Tests
                .Build();
             Contact contactToRemove = AddressBookBuilder.BuildContact1(addressBook.Id);
             IAddressBookRepository repo = Substitute.For<IAddressBookRepository>();
-            repo.GetContact(contactToRemove.Id).Returns(addressBook);
+            repo.GetContactAsync(contactToRemove.Id).Returns(addressBook);
             AddressBookService target = new AddressBookService(repo);
 
             // Act
@@ -73,7 +73,7 @@ namespace AddressBook.Core.Tests
                .Build();
             Contact contactWithUpdateDetails = AddressBookBuilder.BuildContact1(addressBook.Id);
             IAddressBookRepository repo = Substitute.For<IAddressBookRepository>();
-            repo.GetContact(contactWithUpdateDetails.Id).Returns(addressBook);
+            repo.GetContactAsync(contactWithUpdateDetails.Id).Returns(addressBook);
             AddressBookService target = new AddressBookService(repo);
 
             // Act

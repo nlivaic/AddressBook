@@ -9,8 +9,8 @@ namespace AddressBook.Core.Services
         Task<Guid> AddContactAsync(Contact contact);
         Task UpdateContactAsync(Contact contact);
         Task RemoveContactAsync(Guid id);
-        AddressBook GetAddressBook(int page = 0, int pageSize = 5);
-        AddressBook GetAddressBookForContact(Guid contactId);
+        Task<AddressBook> GetAddressBookAsync(int page = 0, int pageSize = 5);
+        Task<AddressBook> GetAddressBookForContactAsync(Guid contactId);
 
     }
 
@@ -22,15 +22,15 @@ namespace AddressBook.Core.Services
             _addressBookRepository = addressBookRepository;
         }
 
-        public AddressBook GetAddressBook(int page = 0, int pageSize = 5) => _addressBookRepository.GetContacts(page);
+        public async Task<AddressBook> GetAddressBookAsync(int page = 0, int pageSize = 5) => await _addressBookRepository.GetContactsAsync(page);
 
-        public AddressBook GetAddressBookForContact(Guid contactId) => _addressBookRepository.GetContact(contactId);
+        public async Task<AddressBook> GetAddressBookForContactAsync(Guid contactId) => await _addressBookRepository.GetContactAsync(contactId);
 
         public async Task<Guid> AddContactAsync(Contact contact)
         {
             // First we will fetch address book along with the contact we are trying to add.
             // This is just in case the contact already exists.
-            var addressBook = _addressBookRepository.GetContact(contact.Name, contact.Address);
+            var addressBook = await _addressBookRepository.GetContactAsync(contact.Name, contact.Address);
             addressBook.RegisterNewContact(contact);
             await _addressBookRepository.SaveAsync(addressBook);
             return contact.Id;
@@ -38,7 +38,7 @@ namespace AddressBook.Core.Services
 
         public async Task RemoveContactAsync(Guid id)
         {
-            var addressBook = _addressBookRepository.GetContact(id);
+            var addressBook = await _addressBookRepository.GetContactAsync(id);
             var contact = addressBook.Contacts.SingleOrDefault(c => c.Id == id);
             if (contact == null)
                 throw new ArgumentException($"Contact {id} not found.");
@@ -48,7 +48,7 @@ namespace AddressBook.Core.Services
 
         public async Task UpdateContactAsync(Contact contact)
         {
-            var addressBook = _addressBookRepository.GetContact(contact.Id);
+            var addressBook = await _addressBookRepository.GetContactAsync(contact.Id);
             var contactToUpdate = addressBook.Contacts.SingleOrDefault(c => c.Id == contact.Id);
             contactToUpdate.UpdateContact(contact.Name, contact.Address, contact.DateOfBirth);
             await _addressBookRepository.SaveAsync(addressBook);

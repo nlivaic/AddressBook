@@ -5,9 +5,9 @@ namespace AddressBook.Core
 {
     public interface IAddressBookRepository
     {
-        AddressBook GetContact(Guid id);
-        AddressBook GetContact(string name, Address address);
-        AddressBook GetContacts(int page = 1);
+        Task<AddressBook> GetContactAsync(Guid id);
+        Task<AddressBook> GetContactAsync(string name, Address address);
+        Task<AddressBook> GetContactsAsync(int page = 1);
         Task SaveAsync(AddressBook addressBook);
     }
 }

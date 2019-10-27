@@ -21,7 +21,7 @@ namespace AddressBook.Web.Controllers
 
 
         [HttpGet]
-        public IActionResult Get([FromQuery]int pageNr)
+        public async Task<IActionResult> Get([FromQuery]int pageNr)
         {
             if (pageNr < 1)
             {
@@ -30,8 +30,8 @@ namespace AddressBook.Web.Controllers
             IEnumerable<ContactDto> contactsDto = null;
             try
             {
-                contactsDto = _service
-                    .GetAddressBook(pageNr)
+                contactsDto = (await _service
+                    .GetAddressBookAsync(pageNr))
                     .Contacts
                     .Select(c => ContactDto.Create(c));
             }
@@ -43,15 +43,15 @@ namespace AddressBook.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get([FromRoute]string id)
+        public async Task<IActionResult> Get([FromRoute]string id)
         {
             if (!Guid.TryParse(id, out var contactId))
                 return BadRequest("Id not in proper format");
             ContactDto contactDto = null;
             try
             {
-                contactDto = _service
-                    .GetAddressBookForContact(contactId)
+                contactDto = (await _service
+                    .GetAddressBookForContactAsync(contactId))
                     .Contacts
                     .Select(c => ContactDto.Create(c))
                     .SingleOrDefault();
@@ -84,7 +84,7 @@ namespace AddressBook.Web.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody]ContactDto contactDto)
+        public async Task<IActionResult> Put([FromBody]ContactDto contactDto)
         {
             Contact contact = null;
             try
@@ -95,7 +95,7 @@ namespace AddressBook.Web.Controllers
             catch { return BadRequest("Invalid data on input."); }
             try
             {
-                _service.UpdateContactAsync(contact);
+                await _service.UpdateContactAsync(contact);
             }
             catch { return BadRequest("An error happened while saving new contact."); }
             return NoContent();
