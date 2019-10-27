@@ -41,9 +41,9 @@ namespace AddressBook.Core.Tests
             Contact target = new Contact("John Doe", address, new DateTime(1984, 1, 1), Guid.NewGuid(), new List<TelephoneNumber>());
 
             // Act
-            target.Assign(new TelephoneNumber("091123456"));
-            target.Assign(new TelephoneNumber("091123457"));
-            target.Assign(new TelephoneNumber("091123458"));
+            target.Assign(new TelephoneNumber(target.Id, "091123456"));
+            target.Assign(new TelephoneNumber(target.Id, "091123457"));
+            target.Assign(new TelephoneNumber(target.Id, "091123458"));
             var result = target.TelephoneNumbers.ToList();
 
             // Assert
@@ -61,10 +61,10 @@ namespace AddressBook.Core.Tests
             Contact target = new Contact("John Doe", address, new DateTime(1984, 1, 1), Guid.NewGuid(), new List<TelephoneNumber>());
 
             // Act
-            target.Assign(new TelephoneNumber("091123456"));
+            target.Assign(new TelephoneNumber(target.Id, "091123456"));
 
             // Assert
-            Assert.Throws<ArgumentException>(() => target.Assign(new TelephoneNumber("091123456")));
+            Assert.Throws<ArgumentException>(() => target.Assign(new TelephoneNumber(target.Id, "091123456")));
         }
 
         [Fact]
@@ -73,12 +73,12 @@ namespace AddressBook.Core.Tests
             // Arrange
             Address address = new Address("First Street", "15a", "New York", "USA");
             Contact target = new Contact("John Doe", address, new DateTime(1984, 1, 1), Guid.NewGuid(), new List<TelephoneNumber>());
-            target.Assign(new TelephoneNumber("091123456"));
-            target.Assign(new TelephoneNumber("091123457"));
-            target.Assign(new TelephoneNumber("091123458"));
+            target.Assign(new TelephoneNumber(target.Id, "091123456"));
+            target.Assign(new TelephoneNumber(target.Id, "091123457"));
+            target.Assign(new TelephoneNumber(target.Id, "091123458"));
 
             // Act
-            target.Remove(new TelephoneNumber("091123457"));
+            target.Remove(new TelephoneNumber(target.Id, "091123457"));
             var result = target.TelephoneNumbers.ToList();
 
             // Assert

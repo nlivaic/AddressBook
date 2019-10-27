@@ -12,7 +12,7 @@ namespace AddressBook.Core.Tests
             string telephoneNumber)
         {
             // Arrange, Act
-            TelephoneNumber target = new TelephoneNumber(telephoneNumber);
+            TelephoneNumber target = new TelephoneNumber(Guid.NewGuid(), telephoneNumber);
 
             // Assert
             Assert.Equal(telephoneNumber, target.Value);
@@ -22,7 +22,7 @@ namespace AddressBook.Core.Tests
         public void TelephoneNumber_ImproperFormat_Throws()
         {
             // Arrange, Act, Assert
-            Assert.Throws<ArgumentException>(() => new TelephoneNumber("09112345"));
+            Assert.Throws<ArgumentException>(() => new TelephoneNumber(Guid.NewGuid(), "09112345"));
         }
     }
 }

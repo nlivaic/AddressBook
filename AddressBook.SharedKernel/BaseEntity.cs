@@ -32,8 +32,6 @@ namespace AddressBook.SharedKernel
                 false;
         }
 
-        // public static bool operator ==(BaseEntity<TId, T> one, BaseEntity<TId, T> other) => one.Equals(other);
-        // public static bool operator !=(BaseEntity<TId, T> one, BaseEntity<TId, T> other) => !one.Equals(other);
         public static bool operator ==(BaseEntityEquality<TId, T> one, BaseEntityEquality<TId, T> other) => one.Equals(other);
         public static bool operator !=(BaseEntityEquality<TId, T> one, BaseEntityEquality<TId, T> other) => !one.Equals(other);
 

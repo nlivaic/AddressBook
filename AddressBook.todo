@@ -1,6 +1,15 @@
-☐ TrackingState
+☐ Migrate on app startup.
+☐ Seed on app startup.
+✔ TrackingState @done (27. 10. 2019. 09:56:00)
     ✔ Add @done (26. 10. 2019. 12:31:36)
 ☐ private default ctors needed for EF Core?
 ☐ Tests
     ☐ Tracking state
     ✔ address book removes contact @done (26. 10. 2019. 15:34:20)
+☐ Composite index je problem. Možda bi ga mogao dodati DDL-om ručno. Stringovi u Fluent API-ju ne funkcioniraju, ali ne bih digao ruke ni od toga još.
+☐ Migrations
+    ☐ cd ./AddressBook.Data; dotnet ef --startup-project ..\AddressBook.Web\  migrations add Initial --context AddressBookDbContext; cd ..
+    ☐ cd ./AddressBook.Data; dotnet ef --startup-project ..\AddressBook.Web\  database update --context AddressBookDbContext; cd ..
+☐ Notes for release
+    ☐ Database connection string is in appsettings.development.json. This will suffice for getting started, but even for dev purposes, it would be better to use User Secrets, but I felt that would only complicate things at this point.
+    ☐ To execute migrations: cd ./AddressBook.Data; dotnet ef --startup-project ..\AddressBook.Web\  database update --context AddressBookDbContext; cd ..

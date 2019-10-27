@@ -5,6 +5,13 @@ namespace AddressBook.Data
 {
     public class AddressBookRepository : IAddressBookRepository
     {
+        private readonly AddressBookDbContext _ctx;
+
+        public AddressBookRepository(AddressBookDbContext ctx)
+        {
+            _ctx = ctx;
+        }
+
         public Core.AddressBook GetContact(Guid id)
         {
             throw new NotImplementedException();
