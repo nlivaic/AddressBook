@@ -41,9 +41,9 @@ namespace AddressBook.Core.Tests
             Contact target = new Contact("John Doe", address, new DateTime(1984, 1, 1), Guid.NewGuid(), new List<TelephoneNumber>());
 
             // Act
-            target.Assign(new TelephoneNumber(target.Id, "091123456"));
-            target.Assign(new TelephoneNumber(target.Id, "091123457"));
-            target.Assign(new TelephoneNumber(target.Id, "091123458"));
+            target.Assign(new TelephoneNumber(/*target.Id, */"091123456"));
+            target.Assign(new TelephoneNumber(/*target.Id, */"091123457"));
+            target.Assign(new TelephoneNumber(/*target.Id, */"091123458"));
             var result = target.TelephoneNumbers.ToList();
 
             // Assert
@@ -61,30 +61,10 @@ namespace AddressBook.Core.Tests
             Contact target = new Contact("John Doe", address, new DateTime(1984, 1, 1), Guid.NewGuid(), new List<TelephoneNumber>());
 
             // Act
-            target.Assign(new TelephoneNumber(target.Id, "091123456"));
+            target.Assign(new TelephoneNumber(/*target.Id, */"091123456"));
 
             // Assert
-            Assert.Throws<ArgumentException>(() => target.Assign(new TelephoneNumber(target.Id, "091123456")));
-        }
-
-        [Fact]
-        public void Contact_CanRemoveTelephoneNumber()
-        {
-            // Arrange
-            Address address = new Address("First Street", "15a", "New York", "USA");
-            Contact target = new Contact("John Doe", address, new DateTime(1984, 1, 1), Guid.NewGuid(), new List<TelephoneNumber>());
-            target.Assign(new TelephoneNumber(target.Id, "091123456"));
-            target.Assign(new TelephoneNumber(target.Id, "091123457"));
-            target.Assign(new TelephoneNumber(target.Id, "091123458"));
-
-            // Act
-            target.Remove(new TelephoneNumber(target.Id, "091123457"));
-            var result = target.TelephoneNumbers.ToList();
-
-            // Assert
-            Assert.Equal(2, result.Count);
-            Assert.Equal("091123456", result[0].Value);
-            Assert.Equal("091123458", result[1].Value);
+            Assert.Throws<ArgumentException>(() => target.Assign(new TelephoneNumber(/*target.Id, */"091123456")));
         }
 
         [Fact]
@@ -92,19 +72,27 @@ namespace AddressBook.Core.Tests
         {
             // Arrange
             Address address = new Address("First Street", "15a", "New York", "USA");
-            Contact target = new Contact("John Doe", address, new DateTime(1984, 1, 1), Guid.NewGuid(), new List<TelephoneNumber>());
+            Contact target = new Contact(
+                "John Doe",
+                address,
+                new DateTime(1984, 1, 1),
+                Guid.NewGuid(),
+                new List<TelephoneNumber> { new TelephoneNumber("091123456"), new TelephoneNumber("091123457") });
             Guid originalTargetId = target.Id;
             Address newAddress = new Address("Second Street", "30b", "Los Angeles", "USA");
             DateTime newDateOfBirth = new DateTime(1948, 1, 1);
 
             // Act
-            target.UpdateContact("Joe Schmoe", newAddress, new DateTime(1948, 1, 1));
+            target.UpdateContact("Joe Schmoe", newAddress, new DateTime(1948, 1, 1), new List<TelephoneNumber> { new TelephoneNumber("091123458") });
 
             // Assert
             Assert.Equal(originalTargetId, target.Id);
             Assert.Equal("Joe Schmoe", target.Name);
             Assert.Equal(newAddress, target.Address);
             Assert.Equal(newDateOfBirth, target.DateOfBirth);
+            Assert.Equal(2, target.TelephoneNumbers.Where(t => t.Tracking == SharedKernel.TrackingState.Deleted).Count());
+            Assert.Single(target.TelephoneNumbers.Where(t => t.Tracking == SharedKernel.TrackingState.Added));
+            Assert.Equal("091123458", target.TelephoneNumbers.Single(t => t.Tracking == SharedKernel.TrackingState.Added).Value);
         }
 
         [Fact]
@@ -117,7 +105,7 @@ namespace AddressBook.Core.Tests
             DateTime newDateOfBirth = new DateTime(1948, 1, 1);
 
             // Act
-            Assert.Throws<ArgumentException>(() => target.UpdateContact(string.Empty, newAddress, new DateTime(1948, 1, 1)));
+            Assert.Throws<ArgumentException>(() => target.UpdateContact(string.Empty, newAddress, new DateTime(1948, 1, 1), new List<TelephoneNumber>()));
         }
     }
 }

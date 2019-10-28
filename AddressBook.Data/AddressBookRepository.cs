@@ -87,6 +87,18 @@ namespace AddressBook.Data
                         _ctx.Contacts.Remove(contact);
                         break;
                 }
+                foreach (var telephone in contact.TelephoneNumbers)
+                {
+                    switch (telephone.Tracking)
+                    {
+                        case TrackingState.Added:
+                            _ctx.TelephoneNumbers.Add(telephone);
+                            break;
+                        case TrackingState.Deleted:
+                            _ctx.TelephoneNumbers.Remove(telephone);
+                            break;
+                    }
+                }
             }
             await _ctx.SaveChangesAsync();
         }

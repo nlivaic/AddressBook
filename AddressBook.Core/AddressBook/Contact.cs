@@ -44,22 +44,25 @@ namespace AddressBook.Core
                 throw new ArgumentException($"Telephone number {telephoneNumber.Value} already assigned to contact {Name}.");
             }
             _telephoneNumbers.Add(telephoneNumber);
-            Tracking = TrackingState.Modified;
+            telephoneNumber.Tracking = TrackingState.Added;
         }
 
-        public void Remove(TelephoneNumber telephoneNumber)
+        public void ClearAllTelephoneNumbers()
         {
-            _telephoneNumbers.Remove(telephoneNumber);
-            Tracking = TrackingState.Modified;
-            telephoneNumber.Tracking = TrackingState.Deleted;
+            _telephoneNumbers.ForEach(t => t.Tracking = TrackingState.Deleted);
         }
 
-        public void UpdateContact(string name, Address address, DateTime dateOfBirth)
+        public void UpdateContact(string name, Address address, DateTime dateOfBirth, IEnumerable<TelephoneNumber> telephoneNumbers)
         {
             Validate(name, address, _telephoneNumbers);
             Name = name;
             Address = address;
             DateOfBirth = dateOfBirth;
+            ClearAllTelephoneNumbers();
+            foreach (var telephone in telephoneNumbers)
+            {
+                Assign(telephone);
+            }
             Tracking = TrackingState.Modified;
         }
 

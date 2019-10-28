@@ -34,9 +34,9 @@ namespace AddressBook.Web
                                     new DateTime(1977, 1, 1),
                                     new Guid("f916643f-2753-4633-9a9e-50a862e08267"),
                                     new List<TelephoneNumber>() {
-                                        new TelephoneNumber(new Guid("ded445d8-6401-47d1-b068-702872ba97bd"), "392234165"),
-                                        new TelephoneNumber(new Guid("ded445d8-6401-47d1-b068-702872ba97bd"), "827137551"),
-                                        new TelephoneNumber(new Guid("ded445d8-6401-47d1-b068-702872ba97bd"), "343471358")
+                                        new TelephoneNumber(/*new Guid("ded445d8-6401-47d1-b068-702872ba97bd"), */"392234165"),
+                                        new TelephoneNumber(/*new Guid("ded445d8-6401-47d1-b068-702872ba97bd"), */"827137551"),
+                                        new TelephoneNumber(/*new Guid("ded445d8-6401-47d1-b068-702872ba97bd"), */"343471358")
                                     }
                                 ),
                                 new Contact (
@@ -50,9 +50,9 @@ namespace AddressBook.Web
                                     new DateTime(1967, 1, 1),
                                     new Guid("f916643f-2753-4633-9a9e-50a862e08267"),
                                     new List<TelephoneNumber>() {
-                                        new TelephoneNumber(new Guid("7507da05-e022-4b0e-b364-7425424fcab8"), "576618730"),
-                                        new TelephoneNumber(new Guid("7507da05-e022-4b0e-b364-7425424fcab8"), "979741254"),
-                                        new TelephoneNumber(new Guid("7507da05-e022-4b0e-b364-7425424fcab8"), "420433518")
+                                        new TelephoneNumber(/*new Guid("7507da05-e022-4b0e-b364-7425424fcab8"), */"576618730"),
+                                        new TelephoneNumber(/*new Guid("7507da05-e022-4b0e-b364-7425424fcab8"), */"979741254"),
+                                        new TelephoneNumber(/*new Guid("7507da05-e022-4b0e-b364-7425424fcab8"), */"420433518")
                                     }
                                 ),
                                 new Contact (
@@ -66,9 +66,9 @@ namespace AddressBook.Web
                                     new DateTime(1952, 1, 1),
                                     new Guid("f916643f-2753-4633-9a9e-50a862e08267"),
                                     new List<TelephoneNumber>() {
-                                        new TelephoneNumber(new Guid("8f9ebc89-1b17-4787-af4a-d57bb49847a6"), "240672469"),
-                                        new TelephoneNumber(new Guid("8f9ebc89-1b17-4787-af4a-d57bb49847a6"), "763677894"),
-                                        new TelephoneNumber(new Guid("8f9ebc89-1b17-4787-af4a-d57bb49847a6"), "920082904")
+                                        new TelephoneNumber(/*new Guid("8f9ebc89-1b17-4787-af4a-d57bb49847a6"), */"240672469"),
+                                        new TelephoneNumber(/*new Guid("8f9ebc89-1b17-4787-af4a-d57bb49847a6"), */"763677894"),
+                                        new TelephoneNumber(/*new Guid("8f9ebc89-1b17-4787-af4a-d57bb49847a6"), */"920082904")
                                     }
                                 ),
 
@@ -83,9 +83,9 @@ namespace AddressBook.Web
                                     new DateTime(1912, 1, 1),
                                     new Guid("f916643f-2753-4633-9a9e-50a862e08267"),
                                     new List<TelephoneNumber>() {
-                                        new TelephoneNumber(new Guid("ed015b66-901d-431a-a6bd-6e9fbc6aeedd"), "355378167"),
-                                        new TelephoneNumber(new Guid("ed015b66-901d-431a-a6bd-6e9fbc6aeedd"), "584693100"),
-                                        new TelephoneNumber(new Guid("ed015b66-901d-431a-a6bd-6e9fbc6aeedd"), "497382705")
+                                        new TelephoneNumber(/*new Guid("ed015b66-901d-431a-a6bd-6e9fbc6aeedd"), */"355378167"),
+                                        new TelephoneNumber(/*new Guid("ed015b66-901d-431a-a6bd-6e9fbc6aeedd"), */"584693100"),
+                                        new TelephoneNumber(/*new Guid("ed015b66-901d-431a-a6bd-6e9fbc6aeedd"), */"497382705")
                                     }
                                 ),
                                 new Contact (
@@ -99,9 +99,9 @@ namespace AddressBook.Web
                                     new DateTime(1998, 1, 1),
                                     new Guid("f916643f-2753-4633-9a9e-50a862e08267"),
                                     new List<TelephoneNumber>() {
-                                        new TelephoneNumber(new Guid("b489182d-8aee-4908-8845-2987fa87c544"), "917127566"),
-                                        new TelephoneNumber(new Guid("b489182d-8aee-4908-8845-2987fa87c544"), "753883073"),
-                                        new TelephoneNumber(new Guid("b489182d-8aee-4908-8845-2987fa87c544"), "662047222")
+                                        new TelephoneNumber(/*new Guid("b489182d-8aee-4908-8845-2987fa87c544"), */"917127566"),
+                                        new TelephoneNumber(/*new Guid("b489182d-8aee-4908-8845-2987fa87c544"), */"753883073"),
+                                        new TelephoneNumber(/*new Guid("b489182d-8aee-4908-8845-2987fa87c544"), */"662047222")
                                     }
                                 ),
                                 new Contact (
@@ -115,9 +115,9 @@ namespace AddressBook.Web
                                     new DateTime(1984, 1, 1),
                                     new Guid("f916643f-2753-4633-9a9e-50a862e08267"),
                                     new List<TelephoneNumber>() {
-                                        new TelephoneNumber(new Guid("c50be1f5-a004-4d8d-999d-5a9b0dadc65a"), "6157609510"),
-                                        new TelephoneNumber(new Guid("c50be1f5-a004-4d8d-999d-5a9b0dadc65a"), "7930999390"),
-                                        new TelephoneNumber(new Guid("c50be1f5-a004-4d8d-999d-5a9b0dadc65a"), "8749141882")
+                                        new TelephoneNumber(/*new Guid("c50be1f5-a004-4d8d-999d-5a9b0dadc65a"), */"6157609510"),
+                                        new TelephoneNumber(/*new Guid("c50be1f5-a004-4d8d-999d-5a9b0dadc65a"), */"7930999390"),
+                                        new TelephoneNumber(/*new Guid("c50be1f5-a004-4d8d-999d-5a9b0dadc65a"), */"8749141882")
                                     }
                                 ),
                                 new Contact (
@@ -131,9 +131,9 @@ namespace AddressBook.Web
                                     new DateTime(1984, 1, 1),
                                     new Guid("f916643f-2753-4633-9a9e-50a862e08267"),
                                     new List<TelephoneNumber>() {
-                                        new TelephoneNumber(new Guid("840203ab-cc77-4837-82fa-8b0ca337fff7"), "4043839479"),
-                                        new TelephoneNumber(new Guid("840203ab-cc77-4837-82fa-8b0ca337fff7"), "6554177381"),
-                                        new TelephoneNumber(new Guid("840203ab-cc77-4837-82fa-8b0ca337fff7"), "0981254542")
+                                        new TelephoneNumber(/*new Guid("840203ab-cc77-4837-82fa-8b0ca337fff7"), */"4043839479"),
+                                        new TelephoneNumber(/*new Guid("840203ab-cc77-4837-82fa-8b0ca337fff7"), */"6554177381"),
+                                        new TelephoneNumber(/*new Guid("840203ab-cc77-4837-82fa-8b0ca337fff7"), */"0981254542")
                                     }
                                 )
                             }

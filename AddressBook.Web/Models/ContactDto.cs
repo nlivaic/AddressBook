@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AddressBook.Core;
 
 namespace AddressBook.Web.Models
@@ -14,6 +15,7 @@ namespace AddressBook.Web.Models
         public string Country { get; set; }
         public string DateOfBirth { get; set; }
         public string AddressBookId { get; set; }
+        public IEnumerable<string> TelephoneNumbers { get; set; }
 
         public static ContactDto Create(Contact contact)
         {
@@ -26,13 +28,16 @@ namespace AddressBook.Web.Models
                 City = contact.Address.City,
                 Country = contact.Address.Country,
                 DateOfBirth = contact.DateOfBirth.ToShortDateString(),
-                AddressBookId = contact.AddressBookId.ToString()
+                AddressBookId = contact.AddressBookId.ToString(),
+                TelephoneNumbers = contact.TelephoneNumbers.Select(t => t.Value)
             };
         }
 
-        public Contact Create() =>
-            string.IsNullOrEmpty(Id) ?
-                new Contact(
+        public Contact Create()
+        {
+            if (string.IsNullOrEmpty(Id))
+            {
+                return new Contact(
                     Name,
                     new Address(
                         Street,
@@ -42,9 +47,11 @@ namespace AddressBook.Web.Models
                     ),
                     DateTime.Parse(DateOfBirth),
                     new Guid(AddressBookId),
-                    new List<TelephoneNumber>())
-                :
-                new Contact(
+                    TelephoneNumbers.Select(t => new TelephoneNumber(t)).ToList());
+            }
+            else
+            {
+                return new Contact(
                     new Guid(Id),
                     Name,
                     new Address(
@@ -55,7 +62,8 @@ namespace AddressBook.Web.Models
                     ),
                     DateTime.Parse(DateOfBirth),
                     new Guid(AddressBookId),
-                    new List<TelephoneNumber>());
-
+                    TelephoneNumbers.Select(t => new TelephoneNumber(t)).ToList());
+            }
+        }
     }
 }

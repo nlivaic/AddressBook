@@ -60,7 +60,7 @@ namespace AddressBook.Data.Migrations
 
                     b.HasIndex("ContactId");
 
-                    b.ToTable("TelephoneNumber");
+                    b.ToTable("TelephoneNumbers");
                 });
 
             modelBuilder.Entity("AddressBook.Core.Contact", b =>

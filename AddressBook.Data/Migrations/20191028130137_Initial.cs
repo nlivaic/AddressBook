@@ -43,18 +43,18 @@ namespace AddressBook.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TelephoneNumber",
+                name: "TelephoneNumbers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
-                    ContactId = table.Column<Guid>(nullable: false)
+                    ContactId = table.Column<Guid>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TelephoneNumber", x => x.Id);
+                    table.PrimaryKey("PK_TelephoneNumbers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TelephoneNumber_Contacts_ContactId",
+                        name: "FK_TelephoneNumbers_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "Contacts",
                         principalColumn: "Id",
@@ -67,15 +67,17 @@ namespace AddressBook.Data.Migrations
                 column: "AddressBookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TelephoneNumber_ContactId",
-                table: "TelephoneNumber",
+                name: "IX_TelephoneNumbers_ContactId",
+                table: "TelephoneNumbers",
                 column: "ContactId");
+
+            migrationBuilder.Sql("ALTER TABLE \"Contacts\" ADD CONSTRAINT UQ_Contacts_Name_Address UNIQUE (\"Name\", \"Address_Street\", \"Address_StreetNr\", \"Address_City\", \"Address_Country\")");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TelephoneNumber");
+                name: "TelephoneNumbers");
 
             migrationBuilder.DropTable(
                 name: "Contacts");

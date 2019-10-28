@@ -15,10 +15,12 @@ namespace AddressBook.Web
     public class Startup
     {
         private readonly IConfiguration _configuration;
+        private readonly IHostingEnvironment _environment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             _configuration = configuration;
+            _environment = environment;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -33,7 +35,13 @@ namespace AddressBook.Web
             });
 
             services.AddDbContext<AddressBookDbContext>(options =>
-                options.UseNpgsql(_configuration["ConnectionStrings:AddressBookDatabase"])
+                {
+                    options.UseNpgsql(_configuration["ConnectionStrings:AddressBookDatabase"]);
+                    if (_environment.IsDevelopment())
+                    {
+                        options.EnableSensitiveDataLogging(true);
+                    }
+                }
             );
 
             services.AddScoped<IAddressBookService, AddressBookService>();

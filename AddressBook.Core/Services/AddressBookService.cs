@@ -53,7 +53,7 @@ namespace AddressBook.Core.Services
         {
             var addressBook = await _addressBookRepository.GetContactAsync(contact.Id);
             var contactToUpdate = addressBook.Contacts.SingleOrDefault(c => c.Id == contact.Id);
-            contactToUpdate.UpdateContact(contact.Name, contact.Address, contact.DateOfBirth);
+            contactToUpdate.UpdateContact(contact.Name, contact.Address, contact.DateOfBirth, contact.TelephoneNumbers);
             await _addressBookRepository.SaveAsync(addressBook);
         }
     }

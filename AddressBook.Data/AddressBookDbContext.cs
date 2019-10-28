@@ -8,8 +8,7 @@ namespace AddressBook.Data
     {
         public DbSet<Core.AddressBook> AddressBooks { get; set; }
         public DbSet<Core.Contact> Contacts { get; set; }
-
-        // public AddressBookDbContext() : base() { }
+        public DbSet<Core.TelephoneNumber> TelephoneNumbers { get; set; }
 
         public AddressBookDbContext(DbContextOptions<AddressBookDbContext> options) : base(options) { }
 
