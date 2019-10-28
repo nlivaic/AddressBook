@@ -8,19 +8,19 @@ import Paging from "./Paging";
 
 class ContactsList extends Component {
   componentDidMount() {
-    const { pageNr, requestContacts } = this.props;
-    requestContacts(pageNr === undefined ? 1 : pageNr);
+    const { pageNr = 1, requestContacts } = this.props;
+    requestContacts(pageNr);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.pageNr !== prevProps.pageNr) {
-      const { pageNr, requestContacts } = this.props;
-      requestContacts(pageNr === undefined ? 1 : pageNr);
+      const { pageNr = 1, requestContacts } = this.props;
+      requestContacts(pageNr);
     }
   }
 
   render() {
-    const { pageNr, isLoading, contactsList } = this.props;
+    const { pageNr = 1, isLoading, contactsList } = this.props;
     if (isLoading) return <p>Loading...</p>;
     return (
       <div>

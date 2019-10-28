@@ -14,6 +14,7 @@ const Root = ({ history, store }) => {
         <NewContact />
         <hr />
         <Switch>
+          <Route component={ContactsList} exact path="/" />
           <Route component={ContactsList} exact path="/Contacts/:pageNr" />
           <Route component={NewContactData} exact path="/NewContact" />
           <Route component={ContactData} exact path="/Contact/:id" />
