@@ -6,11 +6,9 @@ Domain logic is in AddressBook.Core. This project does not have any dependencies
 
 Shared kernel is a place where some basic functionalities are. In this case I kept things simple due to time constraints, so this is where basic definitions of Entity and Value classes are found.
 
-Web project houses the API, Dto, input validation and sanitizer logic.
+Web project houses the API, Dto, input validation and sanitizer logic. This project is also where the front end is happening: React and Redux were my choice. No styling at this point yet.
 
-Tests cover only the domain logic.
-
-As far as security goes, nothing is implemented at this point due to time constraints. Identity authentication, authorization and appropriate headers for CSP, Xfo, CSRF and HSTS could be added rather quickly.
+Unit tests cover only the domain logic.
 
 ## Deployment details:
 
@@ -29,3 +27,11 @@ Run the app from solution root folder.
 Just in case you want to migrate manually, execute below from solution root folder:
     
     cd ./AddressBook.Data; dotnet ef --startup-project ..\AddressBook.Web\  database update --context AddressBookDbContext; cd ..
+
+## Stuff left to do:
+
+As far as security goes, nothing is implemented at this point due to time constraints. Identity authentication, authorization and appropriate headers for CSP, Xfo, CSRF and HSTS could be added rather quickly.
+
+SignalR was out of reach, perhaps I got too ambitious with the front end and the whole SPA thing.
+
+Styling :)
