@@ -1,4 +1,4 @@
-import { push, goBack } from "connected-react-router";
+import { push } from "connected-react-router";
 import { combineReducers } from "redux";
 import * as api from "../api/contact";
 
@@ -41,6 +41,12 @@ export const actionCreators = {
       })
       .then(data => {
         dispatch(push(`/contact/${data.id}`));
+      })
+      .catch(error => {
+        dispatch({
+          response: `An error occurred trying to save contact: ${error.message}.`,
+          type: errorType
+        });
       });
   },
   deleteContact: id => dispatch => {
@@ -80,7 +86,13 @@ export const actionCreators = {
     api
       .updateContact(contact)
       .then(() => dispatch({ data: contact, type: receiveUpdateContactType }))
-      .then(() => dispatch({ type: readContactType }));
+      .then(() => dispatch({ type: readContactType }))
+      .catch(error => {
+        dispatch({
+          response: `An error occurred trying to save contact: ${error.message}.`,
+          type: errorType
+        });
+      });
   },
   readContact: () => dispatch => {
     dispatch({ type: readContactType });

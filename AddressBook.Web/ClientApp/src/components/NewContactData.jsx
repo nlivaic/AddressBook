@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { getContact, getIsRequestingSaveContact } from "../reducers";
+import Error from "./Error";
+import {
+  getContact,
+  getContactError,
+  getIsRequestingSaveContact
+} from "../reducers";
 import { actionCreators as contactActionCreators } from "../reducers/Contact";
 import ContactEdit from "./ContactEdit";
 
@@ -12,8 +17,12 @@ class NewContactData extends Component {
       contact,
       cancelContactEditing,
       createContact,
-      isSaving
+      isSaving,
+      error
     } = this.props;
+    if (error.isError) {
+      return <Error text={error.message} />;
+    }
     return (
       <ContactEdit
         contact={contact}
@@ -28,7 +37,8 @@ class NewContactData extends Component {
 export const mapStateToProps = state => {
   return {
     contact: getContact(state),
-    isSaving: getIsRequestingSaveContact(state)
+    isSaving: getIsRequestingSaveContact(state),
+    error: getContactError(state)
   };
 };
 
