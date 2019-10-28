@@ -17,6 +17,7 @@
 ☐ Notes for release
     ☐ Database connection string is in appsettings.development.json. This will suffice for getting started, but even for dev purposes, it would be better to use User Secrets, but I felt that would only complicate things at this point.
     ☐ To execute migrations: cd ./AddressBook.Data; dotnet ef --startup-project ..\AddressBook.Web\  database update --context AddressBookDbContext; cd ..
+    ☐ cd ./AddressWeb/ClientApp; npm install; cd..; dotnet run;
 ☐ Tracking i EF Core
     ☐ Da li je dovoljno označiti objekt da je Modified i da se onda svi koji su ispod njega se također updateaju?
         Case: telephone number se doda/makne/promijeni - da li je dovoljno .Update(contact) ili moram i telephone numbere dodavati?
@@ -25,10 +26,14 @@
     ☐ DPAPI
 ☐ Stvar mora biti runnable sa dotnet run.
 ✔ Migrate database on start. @done (27. 10. 2019. 19:41:44)
-☐ Sve na async:
-    Service
-    Repo
-    API controller
+✔ Sve na async: @done (27. 10. 2019. 22:17:52)
 ✔ Outbound DTOs. @done (27. 10. 2019. 22:00:57)
 ☐ Remove unused usings.
 ☐ Disallow HTTP
+☐ Dto:
+    ☐ Telephone numbers model <-> dto
+☐ Front end:
+    ☐ Pregledati sve npm pakete.
+    ☐ Da li se igdje spominje riječ blogpost?
+    ☐ Paging
+    ☐ Telephone numbers: reducer, UI, save, delete

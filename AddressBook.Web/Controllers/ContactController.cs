@@ -84,8 +84,9 @@ namespace AddressBook.Web.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody]ContactDto contactDto)
+        public async Task<IActionResult> Put([FromRoute]string id, [FromBody]ContactDto contactDto)
         {
+            contactDto.Id = id;
             Contact contact = null;
             try
             {
