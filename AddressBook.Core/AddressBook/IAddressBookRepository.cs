@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AddressBook.Core
@@ -9,5 +10,6 @@ namespace AddressBook.Core
         Task<AddressBook> GetContactAsync(string name, Address address);
         Task<AddressBook> GetContactsAsync(int page = 1);
         Task SaveAsync(AddressBook addressBook);
+        Task<IEnumerable<Core.AddressBook>> GetAddressBooksAsync();
     }
 }

@@ -79,7 +79,7 @@ class ContactEdit extends Component {
         <br />
         Date Of Birth:
         <input
-          onChange={e => this.setState({ title: e.target.value })}
+          onChange={e => this.setState({ dateOfBirth: e.target.value })}
           type="text"
           value={this.state.dateOfBirth}
         />

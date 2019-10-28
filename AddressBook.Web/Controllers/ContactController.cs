@@ -67,6 +67,7 @@ namespace AddressBook.Web.Controllers
         public async Task<IActionResult> PostAsync([FromBody]ContactDto contactDto)
         {
             Guid newId = new Guid();
+            contactDto.AddressBookId = (await _service.GetAddressBookIdAsync()).ToString();
             Contact contact = null;
             try
             {

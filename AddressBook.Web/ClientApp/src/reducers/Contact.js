@@ -1,4 +1,4 @@
-import { push } from "connected-react-router";
+import { push, goBack } from "connected-react-router";
 import { combineReducers } from "redux";
 import * as api from "../api/contact";
 
@@ -79,7 +79,11 @@ export const actionCreators = {
     dispatch({ type: requestUpdateContactType });
     api
       .updateContact(contact)
-      .then(() => dispatch({ data: contact, type: receiveUpdateContactType }));
+      .then(() => dispatch({ data: contact, type: receiveUpdateContactType }))
+      .then(() => dispatch({ type: readContactType }));
+  },
+  readContact: () => dispatch => {
+    dispatch({ type: readContactType });
   }
 };
 

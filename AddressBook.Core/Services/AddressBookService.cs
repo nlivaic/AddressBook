@@ -6,6 +6,7 @@ namespace AddressBook.Core.Services
 {
     public interface IAddressBookService
     {
+        Task<Guid> GetAddressBookIdAsync();
         Task<Guid> AddContactAsync(Contact contact);
         Task UpdateContactAsync(Contact contact);
         Task RemoveContactAsync(Guid id);
@@ -21,6 +22,8 @@ namespace AddressBook.Core.Services
         {
             _addressBookRepository = addressBookRepository;
         }
+
+        public async Task<Guid> GetAddressBookIdAsync() => (await _addressBookRepository.GetAddressBooksAsync()).First().Id;
 
         public async Task<AddressBook> GetAddressBookAsync(int page = 0, int pageSize = 5) => await _addressBookRepository.GetContactsAsync(page);
 

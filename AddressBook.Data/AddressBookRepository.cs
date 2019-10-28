@@ -4,6 +4,7 @@ using AddressBook.Core;
 using AddressBook.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace AddressBook.Data
 {
@@ -89,5 +90,7 @@ namespace AddressBook.Data
             }
             await _ctx.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Core.AddressBook>> GetAddressBooksAsync() => await _ctx.AddressBooks.ToListAsync();
     }
 }

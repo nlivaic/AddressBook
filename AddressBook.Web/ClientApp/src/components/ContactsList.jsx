@@ -25,7 +25,7 @@ class ContactsList extends Component {
     return (
       <div>
         {contactsList.map(c => (
-          <span>
+          <span key={c.id}>
             <Link key={c.id} to={`/Contact/${c.id}`}>
               {c.name}
             </Link>

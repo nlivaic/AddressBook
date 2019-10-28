@@ -43,7 +43,8 @@ class ContactData extends Component {
       isLoading,
       isNotFound,
       isSaving,
-      updateContact
+      updateContact,
+      readContact
     } = this.props;
     if (isLoading) {
       return <p>Loading...</p>;
@@ -72,7 +73,14 @@ class ContactData extends Component {
         )}
         {isDeleting && <span>Deleting...</span>}
         <br />
-        <button onClick={() => goBack()}>Back</button>
+        <button
+          onClick={() => {
+            readContact();
+            goBack();
+          }}
+        >
+          Back
+        </button>
       </div>
     );
   }
