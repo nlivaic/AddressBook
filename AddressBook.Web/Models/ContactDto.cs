@@ -9,7 +9,7 @@ namespace AddressBook.Web.Models
 {
     public class ContactDto
     {
-        [RegularExpression("^(?!(00000000-0000-0000-0000-000000000000)$)|(^$)", ErrorMessage = "Id must be either empty or non-default Guid.")]
+        [RegularExpression("((?s)^(?!.*00000000-0000-0000-0000-000000000000).*$)|(^$)", ErrorMessage = "Id must be either empty or non-default Guid.")]
         public string Id { get; set; }
         [Required(ErrorMessage = "Name must be non-null")]
         public string Name { get; set; }
@@ -24,7 +24,7 @@ namespace AddressBook.Web.Models
         [Required(ErrorMessage = "Date of birth must be in proper format: DD.MM.YYYY.")]
         [RegularExpression(@"^\d{1,2}.\d{1,2}\.\d{4}\.$")]
         public string DateOfBirth { get; set; }
-        [RegularExpression("^(?!(00000000-0000-0000-0000-000000000000)$)|(^$)", ErrorMessage = "Address Book Id must be either empty or non-default Guid.")]
+        [RegularExpression("((?s)^(?!.*00000000-0000-0000-0000-000000000000).*$)|(^$)", ErrorMessage = "Address Book Id must be either empty or non-default Guid.")]
         public string AddressBookId { get; set; }
         public IEnumerable<string> TelephoneNumbers { get; set; } = new List<string>();
 

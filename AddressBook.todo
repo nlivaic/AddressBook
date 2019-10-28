@@ -14,10 +14,7 @@
     Force all connections to close on pg.
     SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'AddressBook' -- ← change this to your DB AND pid <> pg_backend_pid();
     ALTER TABLE "Contacts" ADD CONSTRAINT UQ_Contacts_Name_Address UNIQUE ("Name", "Address_Street", "Address_StreetNr", "Address_City", "Address_Country");
-☐ Notes for release
-    ☐ Database connection string is in appsettings.development.json. This will suffice for getting started, but even for dev purposes, it would be better to use User Secrets, but I felt that would only complicate things at this point.
-    ☐ To execute migrations: cd ./AddressBook.Data; dotnet ef --startup-project ..\AddressBook.Web\  database update --context AddressBookDbContext; cd ..
-    cd ./AddressWeb/ClientApp; npm install; cd..; dotnet run;
+
 ☐ Tracking i EF Core
     ☐ Da li je dovoljno označiti objekt da je Modified i da se onda svi koji su ispod njega se također updateaju?
         Case: telephone number se doda/makne/promijeni - da li je dovoljno .Update(contact) ili moram i telephone numbere dodavati?

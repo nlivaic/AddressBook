@@ -91,7 +91,7 @@ namespace AddressBook.Web.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put([FromRoute]string id, [FromBody]ContactDto contactDto)
         {
-            contactDto.Id = id;
+            // contactDto.Id = id;
             Contact contact = null;
             contactDto.Sanitize(_sanitizer);
             try
