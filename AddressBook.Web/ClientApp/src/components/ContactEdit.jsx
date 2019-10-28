@@ -42,19 +42,23 @@ class ContactEdit extends Component {
     }
   }
 
-  appendTelephoneNumber() {
-    this.setState(prevState => ({
-      telephoneNumbers: prevState.telephoneNumbers.concat([
-        prevState.newTelephoneNumber
-      ]),
-      newTelephoneNumber: ""
-    }));
+  addTelephoneNumber() {
+    this.setState(prevState => {
+      if (prevState.newTelephoneNumber.trim().length > 0) {
+        return {
+          telephoneNumbers: prevState.telephoneNumbers.concat([
+            prevState.newTelephoneNumber
+          ]),
+          newTelephoneNumber: ""
+        };
+      }
+    });
   }
 
   removeTelephoneNumber(telNr) {
     this.setState(prevState => {
       return {
-        telephoneNumbers: prevState.telephoneNumbers.filter(t => t != telNr.t)
+        telephoneNumbers: prevState.telephoneNumbers.filter(t => t !== telNr.t)
       };
     });
   }
@@ -137,7 +141,7 @@ class ContactEdit extends Component {
             type="text"
             value={this.state.newTelephoneNumber}
           />
-          <button onClick={() => this.appendTelephoneNumber()}>
+          <button onClick={() => this.addTelephoneNumber()}>
             Add phone number
           </button>
         </div>
@@ -146,19 +150,23 @@ class ContactEdit extends Component {
         {!isSaving && (
           <button
             onClick={() => {
-              saveContact(
-                new ContactRequest(
-                  id,
-                  this.state.name,
-                  this.state.street,
-                  this.state.streetNr,
-                  this.state.city,
-                  this.state.country,
-                  this.state.dateOfBirth,
-                  this.state.addressBookId,
-                  this.state.telephoneNumbers
-                )
-              );
+              try {
+                saveContact(
+                  new ContactRequest(
+                    id,
+                    this.state.name,
+                    this.state.street,
+                    this.state.streetNr,
+                    this.state.city,
+                    this.state.country,
+                    this.state.dateOfBirth,
+                    this.state.addressBookId,
+                    this.state.telephoneNumbers
+                  )
+                );
+              } catch (err) {
+                alert(err);
+              }
             }}
           >
             Save
@@ -182,6 +190,19 @@ class ContactRequest {
     addressBookId,
     telephoneNumbers
   ) {
+    if (name.trim() === "") throw "Name must be non-null";
+    if (
+      street.trim() === "" ||
+      streetNr.trim() === "" ||
+      city.trim() === "" ||
+      country.trim() === ""
+    )
+      throw "All address details must be provided.";
+    if (dateOfBirth.search(/^\d{0,1}\.\d{0,1}\.\d{4}\.$/))
+      throw "Date of birth must be in proper format: DD.MM.YYYY.";
+    if (telephoneNumbers.some(t => t.search(/^\d{9,10}$/) === -1))
+      throw "Telephone numbers must be between 9 and 10 digits.";
+
     this.id = id;
     this.name = name;
     this.street = street;
