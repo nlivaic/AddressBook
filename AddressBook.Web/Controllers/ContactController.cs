@@ -99,6 +99,7 @@ namespace AddressBook.Web.Controllers
             {
                 await _service.UpdateContactAsync(contact);
             }
+            catch (ArgumentException ex) { return BadRequest($"An error happened while saving new contact: {ex.Message}."); }
             catch { return BadRequest("An error happened while saving new contact."); }
             return NoContent();
         }

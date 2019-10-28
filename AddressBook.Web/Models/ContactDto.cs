@@ -35,34 +35,45 @@ namespace AddressBook.Web.Models
 
         public Contact Create()
         {
-            if (string.IsNullOrEmpty(Id))
+            try
             {
-                return new Contact(
-                    Name,
-                    new Address(
-                        Street,
-                        StreetNr,
-                        City,
-                        Country
-                    ),
-                    DateTime.Parse(DateOfBirth),
-                    new Guid(AddressBookId),
-                    TelephoneNumbers.Select(t => new TelephoneNumber(t)).ToList());
+                if (string.IsNullOrEmpty(Id))
+                {
+                    return new Contact(
+                        Name,
+                        new Address(
+                            Street,
+                            StreetNr,
+                            City,
+                            Country
+                        ),
+                        DateTime.Parse(DateOfBirth),
+                        new Guid(AddressBookId),
+                        TelephoneNumbers.Select(t => new TelephoneNumber(t)).ToList());
+                }
+                else
+                {
+                    return new Contact(
+                        new Guid(Id),
+                        Name,
+                        new Address(
+                            Street,
+                            StreetNr,
+                            City,
+                            Country
+                        ),
+                        DateTime.Parse(DateOfBirth),
+                        new Guid(AddressBookId),
+                        TelephoneNumbers.Select(t => new TelephoneNumber(t)).ToList());
+                }
             }
-            else
+            catch (ArgumentException argEx)
             {
-                return new Contact(
-                    new Guid(Id),
-                    Name,
-                    new Address(
-                        Street,
-                        StreetNr,
-                        City,
-                        Country
-                    ),
-                    DateTime.Parse(DateOfBirth),
-                    new Guid(AddressBookId),
-                    TelephoneNumbers.Select(t => new TelephoneNumber(t)).ToList());
+                throw argEx;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException($"Invalid data on input: {ex.Message}");
             }
         }
     }
