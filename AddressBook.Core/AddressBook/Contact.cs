@@ -39,7 +39,7 @@ namespace AddressBook.Core
 
         public void Assign(TelephoneNumber telephoneNumber)
         {
-            if (_telephoneNumbers.Any(t => t.Value == telephoneNumber.Value))
+            if (_telephoneNumbers.Any(t => t.Value == telephoneNumber.Value && t.Tracking != TrackingState.Deleted))
             {
                 throw new ArgumentException($"Telephone number {telephoneNumber.Value} already assigned to contact {Name}.");
             }

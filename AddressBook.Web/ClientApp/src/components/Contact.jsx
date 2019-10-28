@@ -16,6 +16,13 @@ const Contact = ({ contact, editContact }) => {
         <br />
         Date Of Birth: {contact.dateOfBirth}
         <br />
+        Telephone Numbers:
+        {contact.telephoneNumbers.map(t => (
+          <div style={{ marginLeft: "50px" }} key={t}>
+            {t}
+          </div>
+        ))}
+        <br />
         <button onClick={editContact}>Edit</button>
       </div>
     </div>

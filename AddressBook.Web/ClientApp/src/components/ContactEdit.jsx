@@ -8,7 +8,9 @@ class ContactEdit extends Component {
     city: this.props.contact.city,
     country: this.props.contact.country,
     dateOfBirth: this.props.contact.dateOfBirth,
-    addressBookId: this.props.contact.addressBookId
+    addressBookId: this.props.contact.addressBookId,
+    telephoneNumbers: this.props.contact.telephoneNumbers,
+    newTelephoneNumber: ""
   };
 
   componentDidUpdate(prevProps) {
@@ -30,6 +32,39 @@ class ContactEdit extends Component {
     if (this.props.contact.dateOfBirth !== prevProps.contact.dateOfBirth) {
       this.setState({ dateOfBirth: this.props.contact.dateOfBirth });
     }
+    if (
+      !this.arraysEqual(
+        this.props.contact.telephoneNumbers,
+        prevProps.contact.telephoneNumbers
+      )
+    ) {
+    }
+  }
+
+  appendTelephoneNumber() {
+    this.setState(prevState => ({
+      telephoneNumbers: prevState.telephoneNumbers.concat([
+        prevState.newTelephoneNumber
+      ]),
+      newTelephoneNumber: ""
+    }));
+  }
+
+  removeTelephoneNumber(telNr) {
+    this.setState(prevState => {
+      return {
+        telephoneNumbers: prevState.telephoneNumbers.filter(t => t != telNr.t)
+      };
+    });
+  }
+
+  arraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+    for (var i = arr1.length; i--; ) {
+      if (arr1[i] !== arr2[i]) return false;
+    }
+
+    return true;
   }
 
   render() {
@@ -84,6 +119,28 @@ class ContactEdit extends Component {
           value={this.state.dateOfBirth}
         />
         <br />
+        Telephone Numbers:
+        <div id="divTelephoneNumbers">
+          {this.state.telephoneNumbers.map(t => (
+            <div style={{ marginLeft: "50px" }} key={Math.random()}>
+              <span>{t}</span>
+              <button onClick={() => this.removeTelephoneNumber({ t })}>
+                Remove
+              </button>
+            </div>
+          ))}
+          <input
+            onChange={e =>
+              this.setState({ newTelephoneNumber: e.target.value })
+            }
+            type="text"
+            value={this.state.newTelephoneNumber}
+          />
+          <button onClick={() => this.appendTelephoneNumber()}>
+            Add phone number
+          </button>
+        </div>
+        <br />
         {isSaving && "Saving..."}
         {!isSaving && (
           <button
@@ -97,7 +154,8 @@ class ContactEdit extends Component {
                   this.state.city,
                   this.state.country,
                   this.state.dateOfBirth,
-                  this.state.addressBookId
+                  this.state.addressBookId,
+                  this.state.telephoneNumbers
                 )
               );
             }}
@@ -120,7 +178,8 @@ class ContactRequest {
     city,
     country,
     dateOfBirth,
-    addressBookId
+    addressBookId,
+    telephoneNumbers
   ) {
     this.id = id;
     this.name = name;
@@ -130,6 +189,7 @@ class ContactRequest {
     this.country = country;
     this.dateOfBirth = dateOfBirth;
     this.addressBookId = addressBookId;
+    this.telephoneNumbers = telephoneNumbers;
   }
 }
 

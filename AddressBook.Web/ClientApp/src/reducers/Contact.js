@@ -23,7 +23,8 @@ const initialState = {
   city: "",
   country: "",
   dateOfBirth: "",
-  addressBookId: ""
+  addressBookId: "",
+  telephoneNumbers: []
 };
 const initialErrorState = { isError: false, message: "" };
 
@@ -111,7 +112,8 @@ const contact = (state = initialState, action) => {
         streetNr: action.data.streetNr,
         city: action.data.city,
         country: action.data.country,
-        dateOfBirth: action.data.dateOfBirth
+        dateOfBirth: action.data.dateOfBirth,
+        telephoneNumbers: action.data.telephoneNumbers
       };
     case resetContactType:
       return initialState;
