@@ -39,12 +39,21 @@ class NewContactData extends Component {
       );
     }
     return (
-      <ContactEdit
-        contact={contact}
-        cancelContactChanges={cancelContactEditing}
-        isSaving={isSaving}
-        saveContact={createContact}
-      />
+      <div>
+        <ContactEdit
+          contact={contact}
+          cancelContactChanges={cancelContactEditing}
+          isSaving={isSaving}
+          saveContact={createContact}
+        />
+        <button
+          onClick={() => {
+            goBack();
+          }}
+        >
+          Back
+        </button>
+      </div>
     );
   }
 }

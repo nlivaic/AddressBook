@@ -38,6 +38,7 @@ class ContactEdit extends Component {
         prevProps.contact.telephoneNumbers
       )
     ) {
+      this.setState({ telephoneNumbers: this.props.contact.telephoneNumbers });
     }
   }
 
