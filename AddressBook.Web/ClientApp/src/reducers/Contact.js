@@ -125,6 +125,7 @@ const isLoading = (state = false, action) => {
     case errorType:
     case notFoundContactType:
     case receiveContactType:
+    case resetContactType:
       return false;
     case requestContactType:
       return true;
@@ -157,6 +158,7 @@ const isEditing = (state = false, action) => {
 
 const isRequestingSaveContact = (state = false, action) => {
   switch (action.type) {
+    case errorType:
     case receiveCreateContactType:
     case receiveUpdateContactType:
       return false;
@@ -170,6 +172,7 @@ const isRequestingSaveContact = (state = false, action) => {
 
 const isDeleting = (state = false, action) => {
   switch (action.type) {
+    case errorType:
     case receiveDeleteContactType:
       return false;
     case requestDeleteContactType:
@@ -186,6 +189,7 @@ const error = (state = initialErrorState, action) => {
         isError: true,
         message: action.response
       };
+    case resetContactType:
     case receiveContactType:
       return initialErrorState;
     default:

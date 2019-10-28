@@ -37,6 +37,6 @@
     ✔ Da li se igdje spominje riječ blogpost? @done (28. 10. 2019. 11:08:06)
     ✔ Paging @done (28. 10. 2019. 11:08:07)
     ☐ Telephone numbers: reducer, UI, save, delete
-    ☐ Kako prenijeti AddressBookId
     ☐ GET vraća BadRequest umjesto 404
-    ☐ Post ako nisu dobri podaci se ne pokaže error screen.
+    ✔ Post ako nisu dobri podaci se ne pokaže error screen. @done (28. 10. 2019. 12:06:01)
+    ☐ Validirati podatke već na klijentu.

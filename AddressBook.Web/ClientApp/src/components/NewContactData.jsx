@@ -1,3 +1,4 @@
+import { goBack } from "connected-react-router";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -14,14 +15,28 @@ import ContactEdit from "./ContactEdit";
 class NewContactData extends Component {
   render() {
     const {
+      goBack,
       contact,
       cancelContactEditing,
       createContact,
+      resetContact,
       isSaving,
       error
     } = this.props;
     if (error.isError) {
-      return <Error text={error.message} />;
+      return (
+        <div>
+          <Error text={error.message} />
+          <button
+            onClick={() => {
+              resetContact();
+              goBack();
+            }}
+          >
+            Back
+          </button>
+        </div>
+      );
     }
     return (
       <ContactEdit
@@ -42,9 +57,15 @@ export const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  let actions = bindActionCreators(contactActionCreators, dispatch);
+  actions["goBack"] = () => dispatch(goBack());
+  return actions;
+};
+
 export default withRouter(
   connect(
     mapStateToProps,
-    dispatch => bindActionCreators(contactActionCreators, dispatch)
+    mapDispatchToProps
   )(NewContactData)
 );
