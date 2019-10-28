@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "213ffcaa-9367-4309-bf55-eb9df81a679e",
+		"name": "AddressBook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Contacts Paging",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/contact?pageNr=3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"contact"
+					],
+					"query": [
+						{
+							"key": "pageNr",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Contact By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/contact/8f9ebc89-1b17-4787-af4a-d57bb49847a6",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"contact",
+						"8f9ebc89-1b17-4787-af4a-d57bb49847a6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Contact",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Name 8\",\r\n        \"street\": \"Eigth Street\",\r\n        \"streetNr\": \"256\",\r\n        \"city\": \"Kansas City\",\r\n        \"country\": \"USA\",\r\n        \"dateOfBirth\": \"1.1.1988.\",\r\n        \"addressBookId\": \"f916643f-2753-4633-9a9e-50a862e08267\"\r\n    }"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/contact",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"contact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Contact - Invalid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Name 8\",\r\n        \"street\": \"Eigth Street\",\r\n        \"streetNr\": \"256\",\r\n        \"city\": \"Kansas City\",\r\n        \"country\": \"\",\r\n        \"dateOfBirth\": \"1.1.1988\",\r\n        \"telephoneNumbers\": [ \"aaa\" ]\r\n    }"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/contact",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"contact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Contact",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"ed485d5a-d157-4540-97ac-e3be2a5dba01\",\r\n    \"name\": \"Name 8\",\r\n    \"street\": \"Eigth Street\",\r\n    \"streetNr\": \"256\",\r\n    \"city\": \"St. Louis\",\r\n    \"country\": \"USA\",\r\n    \"dateOfBirth\": \"1.1.1989.\",\r\n    \"addressBookId\": \"f916643f-2753-4633-9a9e-50a862e08267\"\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/contact",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"contact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Contact - Invalid",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"ed485d5a-d157-4540-97ac-e3be2a5dba01\",\r\n    \"name\": \"Name 8\",\r\n    \"street\": \"Eigth Street\",\r\n    \"streetNr\": \"256\",\r\n    \"city\": \"\",\r\n    \"country\": \"USA\",\r\n    \"dateOfBirth\": \"1.1.1989.\",\r\n    \"addressBookId\": \"f916643f-2753-4633-9a9e-50a862e08267\"\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/contact/ed485d5a-d157-4540-97ac-e3be2a5dba01",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"contact",
+						"ed485d5a-d157-4540-97ac-e3be2a5dba01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Contact",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/contact/764b7596-db68-47b0-8e46-a64915caa7ac",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"contact",
+						"764b7596-db68-47b0-8e46-a64915caa7ac"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

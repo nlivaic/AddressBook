@@ -5,20 +5,23 @@ using System.Threading.Tasks;
 using AddressBook.Core;
 using AddressBook.Core.Services;
 using AddressBook.Web.Models;
+using Ganss.XSS;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AddressBook.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class ContactController : Controller
     {
         private readonly IAddressBookService _service;
+        private readonly HtmlSanitizer _sanitizer;
 
-        public ContactController(IAddressBookService service)
+        public ContactController(IAddressBookService service, HtmlSanitizer sanitizer)
         {
             _service = service;
+            _sanitizer = sanitizer;
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]int pageNr)
@@ -69,6 +72,7 @@ namespace AddressBook.Web.Controllers
             Guid newId = new Guid();
             contactDto.AddressBookId = (await _service.GetAddressBookIdAsync()).ToString();
             Contact contact = null;
+            contactDto.Sanitize(_sanitizer);
             try
             {
                 contact = contactDto.Create();
@@ -89,6 +93,7 @@ namespace AddressBook.Web.Controllers
         {
             contactDto.Id = id;
             Contact contact = null;
+            contactDto.Sanitize(_sanitizer);
             try
             {
                 contact = contactDto.Create();

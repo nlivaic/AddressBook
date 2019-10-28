@@ -1,6 +1,7 @@
 using AddressBook.Core;
 using AddressBook.Core.Services;
 using AddressBook.Data;
+using Ganss.XSS;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -46,6 +47,7 @@ namespace AddressBook.Web
 
             services.AddScoped<IAddressBookService, AddressBookService>();
             services.AddScoped<IAddressBookRepository, AddressBookRepository>();
+            services.AddSingleton<HtmlSanitizer>(new HtmlSanitizer());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
