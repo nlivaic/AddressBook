@@ -7,6 +7,7 @@ const Paging = ({ currentPage, hasItems }) => {
       {currentPage > 1 && (
         <Link to={`/Contacts/${parseInt(currentPage) - 1}`}>Prev</Link>
       )}
+      {"   "}
       {hasItems === true && (
         <Link to={`/Contacts/${parseInt(currentPage) + 1}`}>Next</Link>
       )}
