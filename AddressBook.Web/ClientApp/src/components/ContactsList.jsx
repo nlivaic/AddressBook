@@ -4,11 +4,19 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { actionCreators } from "../reducers/Contacts";
 import { getAllContacts, getContactsIsLoading } from "../reducers";
+import Paging from "./Paging";
 
 class ContactsList extends Component {
   componentDidMount() {
     const { pageNr, requestContacts } = this.props;
     requestContacts(pageNr === undefined ? 1 : pageNr);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.pageNr !== prevProps.pageNr) {
+      const { pageNr, requestContacts } = this.props;
+      requestContacts(pageNr === undefined ? 1 : pageNr);
+    }
   }
 
   render() {
@@ -21,6 +29,11 @@ class ContactsList extends Component {
             {c.name}
           </Link>
         ))}
+        <br />
+        <Paging
+          currentPage={pageNr}
+          hasItems={contactsList.length > 0}
+        ></Paging>
       </div>
     );
   }
