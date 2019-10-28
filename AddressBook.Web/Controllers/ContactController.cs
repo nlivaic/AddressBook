@@ -83,7 +83,7 @@ namespace AddressBook.Web.Controllers
             return CreatedAtAction(nameof(Get), new { id = newId });
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Put([FromRoute]string id, [FromBody]ContactDto contactDto)
         {
             contactDto.Id = id;

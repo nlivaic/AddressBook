@@ -1,11 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Contact = ({ contact, editContact }) => {
   return (
     <div>
-      <Link to={`/Contact/${contact.id}`}>{contact.name}</Link>
-      {<button onClick={editContact}>Edit</button>}
+      <div>
+        Name: {contact.name}
+        <br />
+        Street: {contact.street}
+        <br />
+        Street Nr: {contact.streetNr}
+        <br />
+        City: {contact.city}
+        <br />
+        Country: {contact.country}
+        <br />
+        Date Of Birth: {contact.dateOfBirth}
+        <br />
+        <button onClick={editContact}>Edit</button>
+      </div>
     </div>
   );
 };

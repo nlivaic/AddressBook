@@ -7,7 +7,8 @@ class ContactEdit extends Component {
     streetNr: this.props.contact.streetNr,
     city: this.props.contact.city,
     country: this.props.contact.country,
-    dateOfBirth: this.props.contact.dateOfBirth
+    dateOfBirth: this.props.contact.dateOfBirth,
+    addressBookId: this.props.contact.addressBookId
   };
 
   componentDidUpdate(prevProps) {
@@ -80,7 +81,7 @@ class ContactEdit extends Component {
         <input
           onChange={e => this.setState({ title: e.target.value })}
           type="text"
-          value={this.state.title}
+          value={this.state.dateOfBirth}
         />
         <br />
         {isSaving && "Saving..."}
@@ -95,7 +96,8 @@ class ContactEdit extends Component {
                   this.state.streetNr,
                   this.state.city,
                   this.state.country,
-                  this.state.dateOfBirth
+                  this.state.dateOfBirth,
+                  this.state.addressBookId
                 )
               );
             }}
@@ -110,14 +112,24 @@ class ContactEdit extends Component {
 }
 
 class ContactRequest {
-  constructor(id, name, street, streetNr, city, country, dateOfBirth) {
+  constructor(
+    id,
+    name,
+    street,
+    streetNr,
+    city,
+    country,
+    dateOfBirth,
+    addressBookId
+  ) {
     this.id = id;
-    this.state.name = name;
-    this.state.street = street;
-    this.state.streetNr = streetNr;
-    this.state.city = city;
-    this.state.country = country;
-    this.state.dateOfBirth = dateOfBirth;
+    this.name = name;
+    this.street = street;
+    this.streetNr = streetNr;
+    this.city = city;
+    this.country = country;
+    this.dateOfBirth = dateOfBirth;
+    this.addressBookId = addressBookId;
   }
 }
 
