@@ -18,20 +18,33 @@ Database is migrated and seeded on startup. No additional commands neccessary.
 
 To run the app, you first need to install npm packages.
 
-    cd ./AddressWeb/ClientApp; npm install;
+    cd ./AddressBook.Web/ClientApp
+    npm install
 
 Run the app from solution root folder.
 
-    dotnet run
+    cd ../..
+    dotnet run --project .\AddressBook.Web\
+
+App is reachable via:
+
+    https://localhost:5001/
 
 Just in case you want to migrate manually, execute below from solution root folder:
     
-    cd ./AddressBook.Data; dotnet ef --startup-project ..\AddressBook.Web\  database update --context AddressBookDbContext; cd ..
+    cd ./AddressBook.Data
+    dotnet ef --startup-project ..\AddressBook.Web\ database update --context AddressBookDbContext
+
+## API calls
+
+I included my Postman collection, just in case.
 
 ## Stuff left to do:
 
 As far as security goes, nothing is implemented at this point due to time constraints. Identity authentication, authorization and appropriate headers for CSP, Xfo, CSRF and HSTS could be added rather quickly.
 
 SignalR was out of reach, perhaps I got too ambitious with the front end and the whole SPA thing.
+
+Error handling on the front end. I couldn't get API error messages to propagate nicely. They still show directly on the API, though.
 
 Styling :)
