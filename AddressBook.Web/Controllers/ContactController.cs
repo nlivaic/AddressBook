@@ -7,6 +7,7 @@ using AddressBook.Core.Services;
 using AddressBook.Web.Models;
 using Ganss.XSS;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace AddressBook.Web.Controllers
 {
@@ -16,11 +17,13 @@ namespace AddressBook.Web.Controllers
     {
         private readonly IAddressBookService _service;
         private readonly HtmlSanitizer _sanitizer;
+        private readonly IHubContext<AddressBookHub> _addressBookHub;
 
-        public ContactController(IAddressBookService service, HtmlSanitizer sanitizer)
+        public ContactController(IAddressBookService service, HtmlSanitizer sanitizer, IHubContext<AddressBookHub> addressBookHub)
         {
             _service = service;
             _sanitizer = sanitizer;
+            _addressBookHub = addressBookHub;
         }
 
         [HttpGet]
@@ -106,6 +109,7 @@ namespace AddressBook.Web.Controllers
             }
             catch (ArgumentException ex) { return BadRequest($"An error happened while saving new contact: {ex.Message}."); }
             catch { return BadRequest("An error happened while saving new contact."); }
+            await _addressBookHub.Clients.All.SendAsync("updateContact", ContactDto.Create(contact));
             return NoContent();
         }
 

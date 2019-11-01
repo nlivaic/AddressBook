@@ -4,7 +4,6 @@ using AddressBook.Data;
 using Ganss.XSS;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +47,7 @@ namespace AddressBook.Web
             services.AddScoped<IAddressBookService, AddressBookService>();
             services.AddScoped<IAddressBookRepository, AddressBookRepository>();
             services.AddSingleton<HtmlSanitizer>(new HtmlSanitizer());
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +64,7 @@ namespace AddressBook.Web
             }
 
             app.UseHttpsRedirection();
+            app.UseSignalR(routes => routes.MapHub<AddressBookHub>("/api/addressBookHub"));
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 

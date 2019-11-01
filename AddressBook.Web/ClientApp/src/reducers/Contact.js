@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 import * as api from "../api/contact";
 
 const requestContactType = "REQUEST_CONTACT";
-const receiveContactType = "RECEIVE_CONTACT";
+export const receiveContactType = "RECEIVE_CONTACT";
 const notFoundContactType = "NOT_FOUND_CONTACT";
 const readContactType = "READ_CONTACT";
 const editContactType = "EDIT_CONTACT";
