@@ -23,8 +23,8 @@ To run the app, you first need to install npm packages.
 
 Run the app from solution root folder.
 
-    cd ../..
-    dotnet run --project .\AddressBook.Web\
+    cd ../../AddressBook.Web
+    dotnet run
 
 App is reachable via:
 
