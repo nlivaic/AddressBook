@@ -13,7 +13,7 @@ export default () => {
   middleware.push(routerMiddleware(history));
   middleware.push(thunk);
   middleware.push(logger);
-  middleware.push(addressBookHubMiddleware());
+  middleware.push(addressBookHubMiddleware("/api/addressBookHub"));
   const store = createStore(
     reducers(history),
     compose(applyMiddleware(...middleware))
